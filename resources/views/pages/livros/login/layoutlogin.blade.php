@@ -6,11 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>login</title>
+    <title>@yield('title', 'customtitle')</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+    
     <style>
         /* Estilos personalizados */
         body {
@@ -70,6 +71,15 @@
             margin-bottom: 15px; /* Espaçamento entre os campos */
         }
 
+        
+        .form-control {
+            height: 10px; /* Ajusta a altura para afinar o input */
+            padding: 2px 10px; /* Reduz o padding para afinar os campos de texto */
+            box-sizing: border-box; /* Garante que o padding esteja incluído na altura e largura do campo */
+            font-size: 1rem;
+            text-align: left; /* Alinha o texto à esquerda */
+        }
+
         .w-100.btn.btn-lg.btn-primary {
             margin-top: 20px; /* Espaçamento acima do botão */
             background-color: #717277;
@@ -112,30 +122,9 @@
     <!-- Bootstrap core CSS -->
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-<main class="form-signin">
-    <div class="container-verde">
-        <div class="logo-circulo">
-            <img src="images/logo.png" alt="Logo EET"> <!-- Substitua pelo caminho correto da imagem -->
-        </div>
-        <form>
-            <h1 class="mb-3 fw-normal">Biblioteca</h1>
-            <h1 class="mb-3 fw-normal">EEEFM Estudo e Trabalho</h1>
-            <div class="form-floating">
-                <div class="input-label">E-mail</div> <!-- Texto para o email -->
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            </div>
-            <div class="form-floating">
-                <div class="input-label">Senha</div> <!-- Texto para a senha -->
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
-        </form>
-    </div>
-</main>
-<footer>
-    <div class="footer-line"></div> <!-- Linha branca fina -->
-    <p>Copyright © 2024 Todos os Direitos Reservados RO - Governo de Rondônia</p>
-</footer>
+@yield('content')
 </body>
+
 </html>
