@@ -3,51 +3,51 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <style>
-        /* Estilos para o círculo e a imagem */
+        
         .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-            margin-bottom: 1rem; /* Espaço abaixo do círculo */
+            margin-bottom: 1rem; 
         }
 
         .circle {
-            width: 120px; /* Tamanho do círculo */
-            height: 120px; /* Tamanho do círculo */
+            width: 120px; 
+            height: 120px;
             border-radius: 50%;
-            background-color: white; /* Cor do círculo */
+            background-color: white; 
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px; /* Espaço acima do link */
+            margin-bottom: 10px; 
         }
 
         .circle img {
-            max-width: 110%; /* Aumentando a largura máxima da imagem dentro do círculo */
-            max-height: 110%; /* Aumentando a altura máxima da imagem dentro do círculo */
+            max-width: 110%; 
+            max-height: 110%; 
         }
 
-        /* Estilo para a sidebar */
+      
         .sb-sidenav-dark {
-            background-color: #d5d7da; /* Mudando a cor de fundo para #343a40 */
+            background-color: #d5d7da; 
         }
 
-        /* Estilo para as links da sidebar */
+       
         .sb-sidenav-menu .nav-link {
-            color: #343a40; /* Definindo a cor do texto dos links da sidebar */
-            padding: 10px 15px; /* Adiciona espaçamento interno */
-            display: block; /* Garante que o link ocupe a largura total */
+            color: #343a40;
+            padding: 10px 15px; 
+            display: block; 
         }
 
         .sb-sidenav-menu .nav-link:hover {
-            background-color: #959799; /* Cor de fundo ao passar o mouse */
-            color: #ffffff; /* Cor do texto ao passar o mouse */
+            background-color: #959799; 
+            color: #ffffff; 
         }
 
-        /* Estilo para as linhas separadoras */
+        
         .nav-link:not(:last-child) {
-            border-bottom: 1px solid #bbb; /* Adiciona linha fina abaixo de cada link */
+            border-bottom: 1px solid #bbb; 
         }
     </style>
 </head>

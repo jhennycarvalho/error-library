@@ -32,35 +32,37 @@
         <!-- Seção para entrada manual de informações, alinhada à esquerda -->
         <div id="manual-section" class="form-section mt-4">
             <h2>Livro</h2>
-            <form id="add-book-form">
+
+            <form id="add-book-form" action="{{ route('livros.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control" id="title" name="titulo"> <!-- Corrigido -->
                 </div>
                 <div class="mb-3">
                     <label for="author" class="form-label">Autor:</label>
-                    <input type="text" class="form-control" id="author" name="author">
+                    <input type="text" class="form-control" id="author" name="autor"> <!-- Corrigido -->
                     <div id="authorHelp" class="form-text">Separe os autores com vírgula. (ex: Clarice Lispector, Machado de Assis).</div>
                 </div>
                 <div class="mb-3">
                     <label for="descricao" class="form-label">Descrição</label>
-                    <textarea class="form-control" id="descricaoarea" rows="5"></textarea>
+                    <textarea class="form-control" id="descricao" name="descricao" rows="5"></textarea> <!-- Corrigido -->
                 </div>
                 <div class="mb-3">
                     <label for="editora" class="form-label">Editora:</label>
-                    <input type="text" class="form-control" id="editora" name="editora">
+                    <input type="text" class="form-control" id="editora" name="editora"> <!-- Corrigido -->
                 </div>
                 <div class="mb-3">
                     <label for="publication-date" class="form-label">Data de Publicação</label>
                     <div class="row g-3" id="publication-date">
                         <div class="col">
-                            <input type="number" class="form-control" placeholder="Dia" aria-label="Dia">
+                            <input type="number" class="form-control" name="dia" placeholder="Dia" aria-label="Dia"> <!-- Adicionado nome -->
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" placeholder="Mês" aria-label="Mês">
+                            <input type="number" class="form-control" name="mes" placeholder="Mês" aria-label="Mês"> <!-- Adicionado nome -->
                         </div>
                         <div class="col">
-                            <input type="number" class="form-control" placeholder="Ano" aria-label="Ano">
+                            <input type="number" class="form-control" name="ano" placeholder="Ano" aria-label="Ano"> <!-- Adicionado nome -->
                         </div>
                     </div>
                 </div>
@@ -68,12 +70,12 @@
                     <div class="row g-3">
                         <div class="col">
                             <label for="isbn" class="form-label">ISBN</label>
-                            <input type="text" class="form-control" id="isbn">
-                            <div id="authorHelp" class="form-text">Apenas números. Máximo de 13 dígitos.</div>
+                            <input type="text" class="form-control" id="isbn" name="isbn"> <!-- Corrigido -->
+                            <div id="isbnHelp" class="form-text">Apenas números. Máximo de 13 dígitos.</div> <!-- Corrigido ID -->
                         </div>
                         <div class="col">
                             <label for="localization" class="form-label">Localização</label>
-                            <input type="text" class="form-control" id="localization">
+                            <input type="text" class="form-control" id="localization" name="localizacao"> <!-- Corrigido -->
                         </div>
                     </div>
                 </div>
@@ -81,11 +83,11 @@
                     <div class="row g-3">
                         <div class="col">
                             <label for="pages" class="form-label">Páginas</label>
-                            <input type="number" class="form-control" id="pages" placeholder="Páginas" aria-label="Páginas">
+                            <input type="number" class="form-control" id="pages" name="paginas" placeholder="Páginas" aria-label="Páginas"> <!-- Corrigido -->
                         </div>
                         <div class="col">
                             <label for="genre" class="form-label">Gênero</label>
-                            <select class="form-select" id="genre" aria-label="Gênero">
+                            <select class="form-select" id="genre" name="genero" aria-label="Gênero"> <!-- Corrigido -->
                                 <optgroup label="Ficção">
                                     <option value="romance">Romance</option>
                                     <!-- Outros gêneros aqui -->
@@ -98,7 +100,7 @@
                         </div>
                         <div class="col">
                             <label for="language" class="form-label">Idioma</label>
-                            <select class="form-select" id="language" aria-label="Idioma">
+                            <select class="form-select" id="language" name="idioma" aria-label="Idioma"> <!-- Corrigido -->
                                 <option value="portugues">Português</option>
                                 <option value="ingles">Inglês</option>
                                 <!-- Outros idiomas aqui -->
@@ -108,12 +110,15 @@
                 </div>
                 <div class="mb-3 mt-4">
                     <div id="imageHelp" class="form-text">Carregue arquivos jpg, png ou jpeg. 20 MB no máximo.</div>
-                    <button type="button" class="btn btn-dark w-100 mb-3">
+                    <label for="image_path" class="btn btn-dark w-100 mb-3">
                         <i class="bi bi-image me-2"></i> Imagem da Capa
-                    </button>
+                    </label>
+                    <input type="file" class="form-control d-none" id="image_path" name="image_path" accept="image/*">
+                    
                     <button type="submit" class="btn btn-success w-100">Salvar</button>
                 </div>
             </form>
+            
         </div>
     </div>
 
