@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivroController;  
 use App\Http\Controllers\CadUsuarioController; 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 
 Route::get('/', function () {
@@ -29,3 +31,14 @@ Route::get('/cadastrarusuario', function () {
 
 
 Route::post('/cadastrarusuario', [CadUsuarioController::class, 'store'])->name('usuarios.store');
+
+Route::get('/biblioteca', [LivroController::class, 'index'])->name('pages.livros.administrador.biblioteca');
+
+Route::get('livros/{filename}', function ($filename) {
+    $path = storage_path('app/private/livros/' . $filename);
+    if (file_exists($path)) {
+        return Response::file($path);
+    }
+    abort(404);
+});
+

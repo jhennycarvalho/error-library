@@ -73,77 +73,23 @@
     <!-- Seção de livros -->
     <div class="container-fluid px-4" id="booksContainer">
         <div class="row">
-            <!-- Livro 1 -->
-            <div class="col-2 mb-4 text-center book" data-letter="1">
-                <div class="card" style="border: none;">
-                    <img src="images/1984.jpg" class="card-img-top" alt="Nome do Livro 1">
-                    <div class="card-body" style="padding: 10px;">
-                        <h5 class="card-title" style="font-size: 14px;">1984</h5>
-                        <p class="card-text" style="font-size: 12px;">George Orwell</p>
-                        <a href="index.php" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
+            @foreach ($livros as $livro)
+                <div class="col-2 mb-4 text-center book" data-letter="{{ strtoupper(substr($livro->titulo, 0, 1)) }}">
+                    <div class="card" style="border: none;">
+                        <img src="{{ $livro->image_path ? url('livros/' . basename($livro->image_path)) : asset('images/default-image.jpg') }}" 
+                            class="card-img-top" 
+                            alt="{{ $livro->titulo }}" 
+                            style="max-height: 300px;">
+                        <div class="card-body" style="padding: 10px;">
+                            <h5 class="card-title" style="font-size: 14px;">{{ $livro->titulo }}</h5>
+                            <p class="card-text" style="font-size: 12px;">{{ $livro->autor }}</p>
+                            <a href="#" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Livro 2 -->
-            <div class="col-2 mb-4 text-center book" data-letter="A">
-                <div class="card" style="border: none;">
-                    <img src="images/admiravelmundonovo.jpg" class="card-img-top" alt="Nome do Livro 2">
-                    <div class="card-body" style="padding: 10px;">
-                        <h5 class="card-title" style="font-size: 14px;">Admirável Mundo Novo</h5>
-                        <p class="card-text" style="font-size: 12px;">Aldous Huxley</p>
-                        <a href="index.php" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Livro 3 -->
-            <div class="col-2 mb-4 text-center book" data-letter="A">
-                <div class="card" style="border: none;">
-                    <img src="images/ametamorfose.jpg" class="card-img-top" alt="Nome do Livro 3">
-                    <div class="card-body" style="padding: 10px;">
-                        <h5 class="card-title" style="font-size: 14px;">A Metamorfose</h5>
-                        <p class="card-text" style="font-size: 12px;">Franz Kafka</p>
-                        <a href="index.php" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Livro 4 -->
-            <div class="col-2 mb-4 text-center book" data-letter="D">
-                <div class="card" style="border: none;">
-                    <img src="images/dracula.jpg" class="card-img-top" alt="Nome do Livro 4">
-                    <div class="card-body" style="padding: 10px;">
-                        <h5 class="card-title" style="font-size: 14px;">Dracula</h5>
-                        <p class="card-text" style="font-size: 12px;">Bram Stoker</p>
-                        <a href="index.php" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Livro 5 -->
-            <div class="col-2 mb-4 text-center book" data-letter="O">
-                <div class="card" style="border: none;">
-                    <img src="images/opequenoprincipe.jpg" class="card-img-top" alt="Nome do Livro 5">
-                    <div class="card-body" style="padding: 10px;">
-                        <h5 class="card-title" style="font-size: 14px;">O Pequeno Principe</h5>
-                        <p class="card-text" style="font-size: 12px;">Antoine de Saint-Exupèry</p>
-                        <a href="index.php" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Livro 6 -->
-            <div class="col-2 mb-4 text-center book" data-letter="F">
-                <div class="card" style="border: none;">
-                    <img src="images/frankestein.jpg" class="card-img-top" alt="Nome do Livro 6">
-                    <div class="card-body" style="padding: 10px;">
-                        <h5 class="card-title" style="font-size: 14px;">Frankenstein</h5>
-                        <p class="card-text" style="font-size: 12px;">Mary Shelley</p>
-                        <a href="index.php" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+        </div>
+    </div>
 
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

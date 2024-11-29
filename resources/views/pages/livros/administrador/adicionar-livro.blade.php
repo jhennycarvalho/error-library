@@ -71,7 +71,7 @@
                         <div class="col">
                             <label for="isbn" class="form-label">ISBN</label>
                             <input type="text" class="form-control" id="isbn" name="isbn"> <!-- Corrigido -->
-                            <div id="isbnHelp" class="form-text">Apenas números. Máximo de 13 dígitos.</div> <!-- Corrigido ID -->
+                            <div id="isbnHelp" class="form-text">Apenas números. 13 dígitos.</div> <!-- Corrigido ID -->
                         </div>
                         <div class="col">
                             <label for="localization" class="form-label">Localização</label>
