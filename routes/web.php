@@ -5,11 +5,20 @@ use App\Http\Controllers\LivroController;
 use App\Http\Controllers\CadUsuarioController; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\Auth\LoginController; // Importando o LoginController
+use Illuminate\Support\Facades\Auth; // Usado para o login
 
-
+// Rota para o login
 Route::get('/', function () {
     return view('pages.livros.login.Login');
-});
+})->name('login');
+
+// Rota para processar o login
+Route::post('/', [LoginController::class, 'authenticate'])->name('login.authenticate');
+
+// Rota para o painel do administrador (Biblioteca)
+Route::get('/biblioteca', [LivroController::class, 'index'])->name('pages.livros.administrador.biblioteca')->middleware('auth');
+
 
 
 Route::get('/biblioteca', function () {
