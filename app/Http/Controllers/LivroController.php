@@ -61,3 +61,4 @@ class LivroController extends Controller
         return view('pages.livros.administrador.biblioteca', compact('livros'));
     }
 }
+    

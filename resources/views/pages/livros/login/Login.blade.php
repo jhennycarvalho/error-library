@@ -9,7 +9,7 @@
         </div>
         
         <!-- Formulário de Login -->
-        <form method="POST" action="{{ route('login.authenticate') }}">
+        <form method="POST" action="{{ route('login') }}">
             @csrf
             <h2 class="mb-3">Biblioteca <br> EEEFM Estudo e Trabalho</h2>
             
