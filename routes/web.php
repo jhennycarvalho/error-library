@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LivroController;
+use App\Http\Controllers\EmprestimoController;
 use Illuminate\Support\Facades\Route;
 
+// Rota de login (Página inicial)
 Route::get('/', function () {
     return view('pages.livros.login.Login');
 });
@@ -13,24 +15,42 @@ Route::get('/biblioteca', [LivroController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('biblioteca');
 
-// Rota para adicionar livro
+// rota emprestar
+Route::get('/emprestar', function () {
+    return view('pages.livros.administrador.emprestar');
+})->middleware(['auth', 'verified'])->name('emprestimos.form');
+
+// Buscar usuário para empréstimo
+Route::get('/buscar-usuario', [EmprestimoController::class, 'buscarUsuario'])->name('buscar.usuario');
+
+// Rota para registrar o empréstimo
+Route::post('/emprestimo', [EmprestimoController::class, 'store'])->middleware(['auth', 'verified'])->name('emprestimos.store');
+
+// Rota para adicionar livro (Página de Adicionar Livro)
 Route::get('/adicionarlivro', function () {
     return view('pages.livros.administrador.adicionar-livro');
-});
+})->middleware(['auth', 'verified'])->name('livros.create');
 
-Route::post('/adicionarlivro', [LivroController::class, 'store'])->name('livros.store');
+// Rota para salvar um novo livro
+Route::post('/adicionarlivro', [LivroController::class, 'store'])->middleware(['auth', 'verified'])->name('livros.store');
 
-// Rota de cadastro de usuário
+// Rota para editar um livro (Página de Editar Livro)
+Route::get('/editarlivro/{id}', [LivroController::class, 'edit'])->middleware(['auth', 'verified'])->name('livros.edit');
+
+// Rota para atualizar um livro
+Route::put('/livros/{id}', [LivroController::class, 'update'])->middleware(['auth', 'verified'])->name('livros.update');
+
+// Rota para cadastrar um usuário
 Route::get('/cadastrarusuario', function () {
     return view('pages.livros.administrador.cadastrar-usuario');
-});
+})->middleware(['auth', 'verified'])->name('usuarios.create');
 
 // Rota para o dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Rota para acessar os livros
+// Rota para acessar livros do diretório privado
 Route::get('livros/{filename}', function ($filename) {
     $path = storage_path('app/private/livros/' . $filename);
     if (file_exists($path)) {
@@ -47,3 +67,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+

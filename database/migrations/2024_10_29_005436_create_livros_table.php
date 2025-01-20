@@ -23,7 +23,8 @@ return new class extends Migration
         $table->integer('paginas');
         $table->string('genero');
         $table->string('idioma');
-        $table->string('image_path')->nullable(); // Para imagem da capa
+        $table->string('image_path')->nullable();
+        $table->integer('exemplares_disponiveis')->default(1);
         $table->timestamps();
     });
 }

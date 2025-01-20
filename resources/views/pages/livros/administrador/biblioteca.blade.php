@@ -13,7 +13,9 @@
         <div class="p-3 rounded shadow mb-4" style="background-color: rgb(227, 224, 224);">
             <div class="d-flex align-items-center">
                 <div class="input-group" style="flex-grow: 1;">
-                    <span class="input-group-text bg-white text-muted" style="border: 1px solid #ced4da;"><i class="fas fa-search"></i></span>
+                    <span class="input-group-text bg-white text-muted" style="border: 1px solid #ced4da;">
+                        <i class="fas fa-search"></i>
+                    </span>
                     <input type="text" class="form-control" placeholder="Comece a procurar..." id="searchInput"
                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Comece a procurar...'" style="border: 1px solid #ced4da;" onkeyup="filterBooks()">
                 </div>
@@ -74,16 +76,18 @@
     <div class="container-fluid px-4" id="booksContainer">
         <div class="row">
             @foreach ($livros as $livro)
-                <div class="col-2 mb-4 text-center book" data-letter="{{ strtoupper(substr($livro->titulo, 0, 1)) }}">
+                <div class="col-2 mb-4 text-center book" data-letter="{{ strtoupper(substr($livro->titulo, 0, 1)) }}" id="book-{{ $livro->id }}">
                     <div class="card" style="border: none;">
                         <img src="{{ $livro->image_path ? url('livros/' . basename($livro->image_path)) : asset('images/default-image.jpg') }}" 
                             class="card-img-top" 
                             alt="{{ $livro->titulo }}" 
-                            style="max-height: 300px;">
+                            style="max-height: 200px;">
                         <div class="card-body" style="padding: 10px;">
                             <h5 class="card-title" style="font-size: 14px;">{{ $livro->titulo }}</h5>
                             <p class="card-text" style="font-size: 12px;">{{ $livro->autor }}</p>
-                            <a href="#" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Emprestar</a>
+                            <p class="card-text" style="font-size: 12px; font-weight: bold;">{{ $livro->exemplares_disponiveis }} Exemplares Disponíveis</p> <!-- Quantidade de Exemplares -->
+                            <a href="#" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;" onclick="selectBook({{ $livro->id }})">Emprestar</a>
+                            <a href="{{ route('livros.edit', $livro->id) }}" class="btn btn-light" style="background-color: #d5d7da; color: #000; width: 100%;">Editar</a>
                         </div>
                     </div>
                 </div>
@@ -91,10 +95,43 @@
         </div>
     </div>
 
+    <!-- Modal de confirmação de empréstimo -->
+    <div class="modal fade" id="emprestimoModal" tabindex="-1" aria-labelledby="emprestimoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emprestimoModalLabel">Confirmar Empréstimo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Você selecionou o livro <span id="bookTitle"></span> para emprestar. Tem certeza?</p>
+                    <form id="emprestimoForm" method="POST" action="{{ route('emprestimos.store') }}">
+                        @csrf
+                        <input type="hidden" name="livro_id" id="livro_id">
+                        <input type="hidden" name="usuario_id" value="{{ auth()->id() }}">
+                        <div class="mb-3">
+                            <label for="data_emprestimo" class="form-label">Data de Empréstimo</label>
+                            <input type="text" class="form-control" id="data_emprestimo" name="data_emprestimo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="data_devolucao" class="form-label">Data de Devolução</label>
+                            <input type="text" class="form-control" id="data_devolucao" name="data_devolucao" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" onclick="submitEmprestimo()">Confirmar Empréstimo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script>
+        // Filtragem de livros
         function filterBooks() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const books = document.querySelectorAll('.book');
@@ -128,6 +165,26 @@
                 book.style.display = '';
             });
         }
+
+        // Função para selecionar um livro para empréstimo
+        function selectBook(bookId) {
+            const bookElement = document.getElementById('book-' + bookId);
+            const bookTitle = bookElement.querySelector('.card-title').textContent;
+            const availableCopies = bookElement.querySelector('.card-text').textContent;
+
+            // Exibe o nome do livro no modal
+            document.getElementById('bookTitle').textContent = bookTitle;
+            document.getElementById('livro_id').value = bookId;
+
+            // Exibe o modal
+            new bootstrap.Modal(document.getElementById('emprestimoModal')).show();
+        }
+
+        // Função para enviar o formulário de empréstimo
+        function submitEmprestimo() {
+            const form = document.getElementById('emprestimoForm');
+            form.submit();
+        }
     </script>
     @endpush  
 
@@ -148,4 +205,4 @@
             min-width: 300px; /* Largura mínima do campo de pesquisa */
         }
     </style>
-</x-layout> 
+</x-layout>
