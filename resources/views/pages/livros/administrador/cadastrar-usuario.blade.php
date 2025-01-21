@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="pull-up">
                 <hr>
-                <h1 class="text-left">Cadastrar Leitores</h1>
+                <h1 class="text-left">Cadastrar Usuário</h1>
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="row">
