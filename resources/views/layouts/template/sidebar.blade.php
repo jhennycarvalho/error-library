@@ -67,13 +67,17 @@
                         </div>
                         <a class="nav-link" href="biblioteca" style="color: #343a40;">Empréstimo de livro</a>
                         <a class="nav-link" href="adicionarlivro" style="color: #343a40;">Adicionar Livro</a>
-                        <a class="nav-link" href="cadastrarusuario" style="color: #343a40;">Cadastrar Usuário</a>
+                        <a class="nav-link" href="cadastrarusuario" style="color: #343a40;">Cadastrar Leitores</a>
                         <div style="height: 2.5cm;"></div>
-                        <a class="nav-link" href="/" style="color: #343a40;">
-                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
-                            Sair
-                        </a>
-                    </div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+        
+                            <x-responsive-nav-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-responsive-nav-link>
+                        </div>
                 </div>
             </nav>
         </div>

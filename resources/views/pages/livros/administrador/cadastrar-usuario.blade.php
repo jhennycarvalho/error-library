@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="pull-up">
                 <hr>
-                <h1 class="text-left">Cadastrar Usuário</h1>
+                <h1 class="text-left">Cadastrar Leitores</h1>
                 <form action="{{ route('register') }}" method="POST">
                     @csrf
                     <div class="row">
@@ -31,18 +31,9 @@
                                 @enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                                @error('password')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            
 
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">Confirmar Senha</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                            </div>
+                           
                         </div>
 
                         <div class="col-md-6 col-right">

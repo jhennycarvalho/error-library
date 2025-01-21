@@ -11,12 +11,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class RegisteredUserController extends Controller
 {
+     // Adicionando o método create
+     public function create(): View
+     {
+         return view('auth.register');
+     }
+    
     public function store(Request $request)
     {
         // Validação
+
+        Log::info('Início do cadastro de um novo usuário', ['email' => $request->email]);
+
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
@@ -29,7 +40,7 @@ class RegisteredUserController extends Controller
         ]);
 
         // Criação do usuário
-        User::create([
+        User::create(attributes: [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
@@ -40,7 +51,14 @@ class RegisteredUserController extends Controller
             'endereco' => $validated['endereco'],
         ]);
 
-        // Redirecionamento após o cadastro
-        return redirect()->route('login')->with('success', 'Cadastro realizado com sucesso!');
+      
+        // Mantém o administrador logado
+        $admin = Auth::user(); // Obtém o usuário autenticado (admin)
+        
+        // Realiza login novamente para manter a sessão
+        Auth::login($admin); // Isso garante que o admin ou responsável permaneça logado
+
+        // Redireciona após o cadastro
+        return redirect()->route('usuarios.create')->with('success', 'Cadastro realizado com sucesso!');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 // Rota de login (Página inicial)
 Route::get('/', function () {
-    return view('pages.livros.login.Login');
+    return view('auth.login');
 });
 
 // Definição da rota 'biblioteca' com o controlador
@@ -25,6 +25,7 @@ Route::get('/buscar-usuario', [EmprestimoController::class, 'buscarUsuario'])->n
 
 // Rota para registrar o empréstimo
 Route::post('/emprestimo', [EmprestimoController::class, 'store'])->middleware(['auth', 'verified'])->name('emprestimos.store');
+
 
 // Rota para adicionar livro (Página de Adicionar Livro)
 Route::get('/adicionarlivro', function () {
@@ -45,10 +46,19 @@ Route::get('/cadastrarusuario', function () {
     return view('pages.livros.administrador.cadastrar-usuario');
 })->middleware(['auth', 'verified'])->name('usuarios.create');
 
+
+
+########################################### ROTAS DA BIBLIOTECAAAAA AQUIIII
+Route::get('/dashboard', [LivroController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+
+
+
+
 // Rota para o dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 // Rota para acessar livros do diretório privado
 Route::get('livros/{filename}', function ($filename) {
