@@ -46,9 +46,10 @@ Route::get('/cadastrarusuario', function () {
     return view('pages.livros.administrador.cadastrar-usuario');
 })->middleware(['auth', 'verified'])->name('usuarios.create');
 
+/* Route::resource('leitores', LeitorController::class);
+    return view('pages.livros.administrador.cadastrar-usuario'); */
 
-
-########################################### ROTAS DA BIBLIOTECAAAAA AQUIIII
+########################################### ROTAS DA BIBLIOTECAAAAA AQUIIII ############################################################
 Route::get('/dashboard', [LivroController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
